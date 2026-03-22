@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "nf-sentinel run metadata",
+  "type": "object",
+  "required": ["provenance", "parameters", "samples", "qc_gates", "containers"],
+  "properties": {
+    "provenance": {
+      "type": "object",
+      "required": ["pipeline_name", "pipeline_version", "nextflow_version", "timestamp"]
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "samples": {
+      "type": "object"
+    },
+    "qc_gates": {
+      "type": "array"
+    },
+    "gene_summary": {
+      "type": "object"
+    },
+    "containers": {
+      "type": "object"
+    }
+  }
+}
