@@ -3,6 +3,8 @@ process GENE_SUMMARIZE {
     label 'process_single'
     container 'python:3.11'
 
+    publishDir "${params.outdir}/expression", mode: 'copy'
+
     input:
     path quant_dirs
     path tx2gene

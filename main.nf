@@ -12,6 +12,7 @@ nextflow.enable.dsl = 2
 
 // -- Import modules ------------------------------------------------------
 
+include { UNTAR            } from './modules/untar/main'
 include { FASTP            } from './modules/fastp/main'
 include { SALMON_QUANT     } from './modules/salmon_quant/main'
 include { GENE_SUMMARIZE   } from './modules/gene_summarize/main'
@@ -57,9 +58,18 @@ workflow {
 
     // -- Reference inputs (value channels — reused per sample) ------------
 
-    ch_index  = file(params.salmon_index, checkIfExists: true)
+    ch_salmon_index = file(params.salmon_index, checkIfExists: true)
     ch_tx2gene = file(params.tx2gene, checkIfExists: true)
     ch_schema = file("${projectDir}/assets/metadata_schema.json", checkIfExists: true)
+
+    // -- Extract index if tar.gz ------------------------------------------
+
+    if (params.salmon_index.endsWith('.tar.gz') || params.salmon_index.endsWith('.tgz')) {
+        UNTAR(ch_salmon_index)
+        ch_index = UNTAR.out.untar
+    } else {
+        ch_index = ch_salmon_index
+    }
 
     // -- FASTP: QC + trimming ---------------------------------------------
 
