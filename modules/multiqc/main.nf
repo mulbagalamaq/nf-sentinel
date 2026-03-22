@@ -1,7 +1,7 @@
 process MULTIQC {
     tag "multiqc"
     label 'process_single'
-    container 'multiqc/multiqc:1.25'
+    container 'multiqc/multiqc:v1.25.2'
 
     publishDir "${params.outdir}/multiqc", mode: 'copy'
 

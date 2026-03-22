@@ -1,7 +1,7 @@
 process GENE_SUMMARIZE {
     tag "gene_summarize"
     label 'process_single'
-    container 'python:3.11-slim'
+    container 'python:3.11'
 
     input:
     path quant_dirs

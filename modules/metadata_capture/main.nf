@@ -1,7 +1,7 @@
 process METADATA_CAPTURE {
     tag "metadata"
     label 'process_single'
-    container 'python:3.11-slim'
+    container 'python:3.11'
 
     publishDir "${params.outdir}", mode: 'copy'
 
@@ -105,10 +105,10 @@ process METADATA_CAPTURE {
         "qc_gates": qc_gates,
         "gene_summary": gene_summary,
         "containers": {
-            "fastp":       "quay.io/biocontainers/fastp:0.23.4--hadf994f_0",
+            "fastp":       "quay.io/biocontainers/fastp:0.23.4--h5f740d0_0",
             "salmon":      "quay.io/biocontainers/salmon:1.10.3--h6dccd9a_2",
-            "multiqc":     "multiqc/multiqc:1.25",
-            "python":      "python:3.11-slim",
+            "multiqc":     "multiqc/multiqc:v1.25.2",
+            "python":      "python:3.11",
         }
     }
 
