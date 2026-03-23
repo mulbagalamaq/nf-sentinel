@@ -1,6 +1,7 @@
 process UNTAR {
     tag "$archive"
     label 'process_single'
+    container 'ubuntu:22.04'
 
     input:
     path archive
