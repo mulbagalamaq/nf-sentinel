@@ -1,0 +1,54 @@
+name: nf-sentinel CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  stub-test:
+    name: Pipeline stub test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: nf-core/setup-nextflow@v2
+        with:
+          version: "24.10.0"
+
+      - name: Run stub test
+        run: |
+          nextflow run main.nf -profile test,docker -stub
+
+      - name: Upload pipeline reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stub-test-reports
+          path: results/pipeline_info/
+
+  compliance:
+    name: Compliance check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run compliance gateway
+        run: |
+          python comply/sentinel_comply.py . --threshold 70
+
+      - name: Post compliance report to PR
+        if: github.event_name == 'pull_request'
+        run: |
+          python comply/sentinel_comply.py . --json > compliance.json
+          SCORE=$(python3 -c "import json; print(json.load(open('compliance.json'))['score'])")
+          echo "## Compliance Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Score: ${SCORE}%**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          python comply/sentinel_comply.py . >> $GITHUB_STEP_SUMMARY
