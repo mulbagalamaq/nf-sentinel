@@ -19,7 +19,7 @@ jobs:
 
       - name: Run stub test
         run: |
-          nextflow run main.nf -profile test,docker -stub
+          nextflow run main.nf -profile test -stub
 
       - name: Upload pipeline reports
         if: always()
