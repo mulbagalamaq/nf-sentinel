@@ -106,6 +106,13 @@ Every run produces `run_metadata.json`:
 }
 ```
 
+## AWS Batch Execution (Seqera Platform)
+
+Pipeline runs end-to-end on AWS Batch via Seqera Platform — 10 tasks, 6 min wall time, spot instances, $0.00 estimated cost.
+
+![Seqera Metrics](docs/images/seqera_metrics.png)
+![Seqera Tasks](docs/images/seqera_tasks.png)
+
 ## Configuration Profiles
 
 | Profile | Purpose | Usage |
