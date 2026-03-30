@@ -38,6 +38,10 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Run unit tests
+        run: |
+          cd comply && python -m unittest test_comply -v
+
       - name: Run compliance gateway
         run: |
           python comply/sentinel_comply.py . --threshold 70

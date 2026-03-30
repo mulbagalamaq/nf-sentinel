@@ -33,9 +33,9 @@ Seqera MCP provides 74+ tools to Claude:
 - `sra_search` — search NCBI SRA for public datasets
 - `nfcore_search_modules` — search nf-core module registry
 
-## Interview Framing
+## Design Rationale
 
-"I implemented two interfaces — MCP for interactive AI tools like Claude Code
-and Cursor, which is what Seqera launched weeks ago, and a REST API wrapper
-for headless automation and CI/CD. Same architecture, different transport.
-Scientists get the MCP interface; CI/CD gets the REST API."
+Two interfaces serve different users — MCP for interactive AI tools (Claude Code,
+Cursor), and a REST API wrapper for headless automation and CI/CD. Same
+architecture, different transport. Scientists get the MCP interface; CI/CD
+gets the REST API.
